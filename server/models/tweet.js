@@ -1,23 +1,53 @@
 import mongoose from 'mongoose';
 
 const tweetSchema = mongoose.Schema({
-    handle: String,
-    text: String,
+    handle: {
+        type: String,
+        default: "username"
+    },
+    text: {
+        type: String,
+        default: "TWEET DATA"
+    },
     postedOn: {
         type: Date,
-        default: new Date()
+        default: Date.now
     },
     eVotes: {
-        happy: Number,
-        sad: Number,
-        angry: Number,
-        excited: Number,
-        distress: Number
+        happy: {
+            type: Number,
+            default: 0
+        },
+        sad: {
+            type: Number,
+            default: 0
+        },
+        angry: {
+            type: Number,
+            default: 0
+        },
+        excited: {
+            type: Number,
+            default: 0
+        },
+        distress: {
+            type: Number,
+            default: 0
+        }
     },
     sVotes: {
-        positive: Number,
-        neutral: Number,
-        negative: Number
+        positive: {
+            type: Number,
+            default: 0
+        },
+        neutral: {
+            type: Number,
+            default: 0
+        },
+        negative: {
+            type: Number,
+            default: 0
+        }
     }
 })
 
