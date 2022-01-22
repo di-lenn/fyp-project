@@ -1,4 +1,5 @@
 import TweetMessage from '../models/tweet.js';
+import router from '../routes/tweets.js';
 
 export const getTweets = async (req, res) => {
     try {
@@ -31,5 +32,16 @@ export const createTweet = async (req, res) => {
     res.json(savedTweet);
     }catch(err){
         res.json({ message: err });
+    }
+}
+
+export const getTweetById =  async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const tweet = await TweetMessage.findById(id);
+        res.status(200).json(tweet);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
 }
