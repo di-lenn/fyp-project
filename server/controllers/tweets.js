@@ -1,15 +1,19 @@
+import mongoose from 'mongoose';
+
 import TweetMessage from '../models/tweet.js';
 import router from '../routes/tweets.js';
 
+//GET all tweets
 export const getTweets = async (req, res) => {
     try {
         const tweets = await TweetMessage.find();
         res.json(tweets);
     } catch (err) {
-        res.json({ message: err });
+        res.status(404).json({ message: error.message });
     }
 }
 
+//POST create a new tweet
 export const createTweet = async (req, res) => {
     const tweet = new TweetMessage({
         handle: req.body.handle,
@@ -30,12 +34,13 @@ export const createTweet = async (req, res) => {
     try{
     const savedTweet = await tweet.save();
     res.json(savedTweet);
-    }catch(err){
-        res.json({ message: err });
+    }catch(error){
+        res.status(404).json({ message: error.message });
     }
 }
 
-export const getTweetById =  async (req, res) => {
+//GET a specific tweet by ID
+export const getTweet =  async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -44,4 +49,31 @@ export const getTweetById =  async (req, res) => {
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
+}
+
+//DELETE a specific tweet by ID
+export const deleteTweet = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) 
+        return res.status(404).send(`No tweet with id: ${id}`);
+    
+    await TweetMessage.findByIdAndRemove(id);
+
+    res.json({ message: "Post deleted successfully." });
+}
+
+//PATCH update a specific tweet by ID
+export const updateTweet = async (req, res) => {
+    const { id } = req.params;
+
+    const { handle, text } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No tweet with id: ${id}`);
+
+    const updatedTweet = { handle, text, _id: id};
+
+    await TweetMessage.findByIdAndUpdate(id, updatedTweet, { new: true });
+
+    res.json(updatedTweet);
 }
