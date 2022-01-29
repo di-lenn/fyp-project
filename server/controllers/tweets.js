@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 import TweetMessage from '../models/tweet.js';
-import router from '../routes/tweets.js';
 
 //GET all tweets
 export const getTweets = async (req, res) => {
@@ -15,27 +14,14 @@ export const getTweets = async (req, res) => {
 
 //POST create a new tweet
 export const createTweet = async (req, res) => {
-    const tweet = new TweetMessage({
-        handle: req.body.handle,
-        text: req.body.text,
-        eVotes: {
-            happy: req.body.happy,
-            sad: req.body.sad,
-            angry: req.body.angry,
-            excited: req.body.excited,
-            distress: req.body.distress
-        },
-        sVotes: {
-            positive: req.body.positive,
-            neutral: req.body.neutral,
-            negative: req.body.negative
-        }
-    });
+    const { handle, text, eVotes: { happy, sad, angry, excited, distress }, sVotes: { positive, neutral, negative } } = req.body;
+
+    const newTweetMessage = new TweetMessage({ handle, text, eVotes: { happy, sad, angry, excited, distress }, sVotes: { positive, neutral, negative } });
     try{
-    const savedTweet = await tweet.save();
-    res.json(savedTweet);
+        await newTweetMessage.save();
+        res.status(201).json(newTweetMessage);
     }catch(error){
-        res.status(404).json({ message: error.message });
+        res.status(409).json({ error });
     }
 }
 
