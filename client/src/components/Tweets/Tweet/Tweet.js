@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Form = () => {
+const Tweet = () => {
     return (
         <div>
-            <h1>Form</h1>
+            <h1>Tweet</h1>
         </div>
     );
 }
 
-export default Form;
+export default Tweet;
