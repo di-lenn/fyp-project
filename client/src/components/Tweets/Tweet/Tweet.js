@@ -1,11 +1,13 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 
 import useStyles from './styles';
 import picture from '../../../images/twitterlogo.png';
 
 const Tweet = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     return (
         <Card className={classes.card}>

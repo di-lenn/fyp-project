@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 
+import { getTweets } from './actions/tweets';
 import Form from './components/Form/Form';
 import Tweets from './components/Tweets/Tweets';
 import twitterlogo from './images/twitterlogo.png';
@@ -8,6 +10,11 @@ import useStyles from './styles';
 
 const App = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTweets());
+    }, [dispatch]);
 
     return (
         <Container maxWidth='lg'>
