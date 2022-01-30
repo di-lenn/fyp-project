@@ -1,6 +1,6 @@
 import { FETCH_ALL } from '../constants/actionTypes';
 
-export default (tweets = [], action) => {
+const tweets = (tweets = [], action) => {
     switch(action.type) {
         case FETCH_ALL:
             return action.payload;
@@ -8,3 +8,5 @@ export default (tweets = [], action) => {
             return tweets;
     }
 }
+
+export default tweets

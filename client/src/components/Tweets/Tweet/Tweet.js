@@ -1,23 +1,23 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
 
+
+import moment from 'moment';
 import useStyles from './styles';
 import picture from '../../../images/twitterlogo.png';
 
-const Tweet = () => {
+const Tweet = ({ tweet }) => {
     const classes = useStyles();
-    const dispatch = useDispatch();
 
     return (
         <Card className={classes.card}>
             <CardMedia className={classes.media} image={picture} />
             <div className={classes.overlay}>
-                <Typography variant='h6'>Username</Typography>
-                <Typography variant='body2'>PostDate</Typography>
+                <Typography variant='h6'>{tweet.handle}</Typography>
+                <Typography variant='body2'>{moment(tweet.postedOn).format("dddd, MMMM Do YYYY")}</Typography>
             </div>
             <CardContent>
-                <Typography variant='body2' component="p" >Text here</Typography>
+                <Typography variant='body2' component="p" >{tweet.text}</Typography>
             </CardContent>
         </Card>
     );

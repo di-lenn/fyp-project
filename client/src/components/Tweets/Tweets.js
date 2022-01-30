@@ -9,13 +9,15 @@ const Tweets = () => {
     const classes = useStyles();
     const tweets = useSelector((state) => state.tweets);
 
-    console.log(tweets);
-
     return (
         <Grid className={classes.mainContainer} container alignItems='stretch' spacing={3}>
-            <Grid item xs={11}>
-                <Tweet />
-            </Grid>
+            {tweets.map((tweet) => (
+                
+                <Grid key={tweet._id} item xs={11}>
+                    <Tweet tweet={tweet} />
+                </Grid>
+                
+            ))}
         </Grid>
     );
 }
