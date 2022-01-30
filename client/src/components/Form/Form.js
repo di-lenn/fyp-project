@@ -3,7 +3,7 @@ import { Paper, Typography, Button } from '@material-ui/core';
 
 import useStyles from './styles';
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
     const classes = useStyles();
 
     return (
