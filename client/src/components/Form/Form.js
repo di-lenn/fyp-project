@@ -21,6 +21,7 @@ const Form = ({ currentId, setCurrentId }) => {
                 <Button className={classes.button} variant='contained' size='large' fullWidth>Disgust</Button>
                 <Button className={classes.button} variant='contained' size='large' fullWidth>Anger</Button>
                 <Button className={classes.button} variant='contained' size='large' fullWidth>Surprise</Button>
+                <Button className={classes.buttonSubmit} variant='contained' color='primary' size="large" type='submit' fullWidth>Submit</Button>
             </form>
         </Paper>
     );

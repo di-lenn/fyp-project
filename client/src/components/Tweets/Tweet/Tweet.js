@@ -1,3 +1,5 @@
+// 16/02/22 discontinued use of this component
+// Tweets.js is sufficient for usage
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 
