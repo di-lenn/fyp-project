@@ -53,11 +53,11 @@ export const deleteTweet = async (req, res) => {
 export const updateTweet = async (req, res) => {
     const { id } = req.params;
 
-    const { handle, text } = req.body;
+    const { handle, text, positive, neutral, negative, happiness, sadness, fear, disgust, anger, surprise  } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No tweet with id: ${id}`);
 
-    const updatedTweet = { handle, text, _id: id};
+    const updatedTweet = { handle, text, positive, neutral, negative, happiness, sadness, fear, disgust, anger, surprise, _id: id};
 
     await TweetData.findByIdAndUpdate(id, updatedTweet, { new: true });
 

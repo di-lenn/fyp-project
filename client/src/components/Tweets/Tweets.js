@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Grid, Button, Card, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { Grid, Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 
 import moment from 'moment';
 import useStyles from './styles';
 import picture from '../../images/twitterlogo.png';
 
-const Tweets = () => {
-    const [oneTweet, setOneTweet] = useState({handle: 'jack', text: 'apps have distracted me from just how powerful the web is'});
+const Tweets = (oneTweet) => {
+    // const [oneTweet, setOneTweet] = useState({handle: 'jack', text: 'apps have distracted me from just how powerful the web is', postedOn: '2021-10-31T03:23:00.000Z'});
     const classes = useStyles();
-    const tweets = useSelector((state) => state.tweets);
+    // const tweets = useSelector((state) => state.tweets);
 
-    const handleClick = () => {
-        const random = tweets[Math.floor(Math.random() * 5000)];
-        setOneTweet(random);
-    }
+    // const handleClick = () => {
+    //     const random = tweets[Math.floor(Math.random() * 5000)];
+    //     setOneTweet(random);
+    // }
 
-    // console.log(oneTweet);
+    // console.log(tweets[0]);
 
 
     return (
         <Grid className={classes.mainContainer} container alignItems='stretch' spacing={3}>
             <Grid item xs={11}>
-            <Button onClick={handleClick}>Load New Tweet</Button>
+            {/* <Button onClick={handleClick}>Load New Tweet</Button> */}
             <Card className={classes.card}>
                 <CardMedia className={classes.media} image={picture} />
                 <div className={classes.overlay}>
