@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, AppBar, Typography, Grow, Grid, Button } from '@material-ui/core';
+import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getTweets } from './actions/tweets';
@@ -23,18 +23,13 @@ const App = () => {
         //console.log('This is inside the RANDOM func')
     }
 
-    const handleClick = () => {
-        randomTweet();
-        //console.log('This is inside the click func')
-    }
-
     useEffect(() => {
         setCurrentId(currTweet._id)
     }, [currTweet])
 
     useEffect(() => {
         dispatch(getTweets());
-    }, []);
+    }, [dispatch]);
 
     return (
         <Container maxWidth='lg'>
@@ -42,7 +37,6 @@ const App = () => {
                 <Typography className={classes.heading} align='center' variant='h2'>Sentiment Label Tool</Typography>
                 <img className={classes.image} src={twitterlogo} alt='twitterlogo' height='60'/>
             </AppBar>
-            <Button onClick={handleClick} fullWidth>Random Tweet</Button>
             <Grow in>
                 <Container>
                     <Grid container>

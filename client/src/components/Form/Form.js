@@ -17,41 +17,89 @@ const Form = ( { currentId, randTweet } ) => {
             setTweetData(tweet)
     }, [tweet])
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        funcRand()
-
         if(currentId) {
-            dispatch(updateTweet(currentId, tweet))
+            dispatch(updateTweet(currentId, tweetData));
+            console.log("dispatched!: ");
         } else {
-            console.log('No ID given')
+            console.log('No ID given');
         }
+        funcRand();
+        //clear();
     }
 
+    // Sentiment modifiers
     const votePositive = () => {
         const val = tweet.positive + 1
-        console.log(val)
         setTweetData({ ...tweetData, positive: val})
     }
 
-    // onClick={setTweetData({ ...tweetData, positive: tweetData.positive + 1 })}
+    const voteNeutral = () => {
+        const val = tweet.neutral + 1
+        setTweetData({ ...tweetData, neutral: val})
+    }
+
+    const voteNegative = () => {
+        const val = tweet.negative + 1
+        setTweetData({ ...tweetData, negative: val})
+    }
+    //
+
+    // Emotion Modifiers
+    const voteHappiness = () => {
+        const val = tweet.happiness + 1
+        setTweetData({ ...tweetData, happiness: val})
+    }
+
+    const voteSadness = () => {
+        const val = tweet.sadness + 1
+        setTweetData({ ...tweetData, sadness: val})
+    }
+
+    const voteFear = () => {
+        const val = tweet.fear + 1
+        setTweetData({ ...tweetData, fear: val})
+    }
+    
+    const voteDisgust = () => {
+        const val = tweet.disgust + 1
+        setTweetData({ ...tweetData, disgust: val})
+    }
+
+    const voteAnger = () => {
+        const val = tweet.anger + 1
+        setTweetData({ ...tweetData, anger: val})
+    }
+
+    const voteSurprise = () => {
+        const val = tweet.surprise + 1
+        setTweetData({ ...tweetData, surprise: val})
+    }
+    //
+
+    const clear = () => {
+        setTweetData({ handle: '', text: '', postedOn: '', positive: 0, neutral: 0, negative: 0, happiness: 0, sadness: 0, fear: 0, disgust: 0, anger: 0, surprise: 0 });
+    }
 
     return (
         <Paper className={classes.paper}>
             <form noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+                <Typography variant='h6'>{currentId}</Typography>
                 <Typography variant='h6'>1. Please select what sentiment is conveyed:</Typography>
-                <Button name="positive" label="Positive" value={tweetData.positive} className={classes.button} variant='contained' size='large' onClick={votePositive} fullWidth>Positive</Button>
-                <Button className={classes.button} variant='contained' size='large' fullWidth>Neutral</Button>
-                <Button className={classes.button} variant='contained' size='large' fullWidth>Negative</Button>
+                <Button name="positive" label="Positive" className={classes.button} variant='contained' size='large' onClick={votePositive} fullWidth>Positive</Button>
+                <Button name="neutral" label="Neutral" className={classes.button} variant='contained' size='large' onClick={voteNeutral} fullWidth>Neutral</Button>
+                <Button name="negative" label="Negative" className={classes.button} variant='contained' size='large' onClick={voteNegative} fullWidth>Negative</Button>
 
                 <Typography variant='h6'>2. Please select the most accurate emotion conveyed:</Typography>
-                <Button className={classes.button} variant='contained' size='large' fullWidth>Happiness</Button>
-                <Button className={classes.button} variant='contained' size='large' fullWidth>Sadness</Button>
-                <Button className={classes.button} variant='contained' size='large' fullWidth>Fear</Button>
-                <Button className={classes.button} variant='contained' size='large' fullWidth>Disgust</Button>
-                <Button className={classes.button} variant='contained' size='large' fullWidth>Anger</Button>
-                <Button className={classes.button} variant='contained' size='large' fullWidth>Surprise</Button>
+                <Button name="happiness" label="Happiness" className={classes.button} variant='contained' size='large' onClick={voteHappiness} fullWidth>Happiness</Button>
+                <Button name="sadness" label="Sadness" className={classes.button} variant='contained' size='large' onClick={voteSadness} fullWidth>Sadness</Button>
+                <Button name="fear" label="Fear" className={classes.button} variant='contained' size='large' onClick={voteFear} fullWidth>Fear</Button>
+                <Button name="disgust" label="Disgust" className={classes.button} variant='contained' size='large' onClick={voteDisgust} fullWidth>Disgust</Button>
+                <Button name="anger" label="Anger" className={classes.button} variant='contained' size='large' onClick={voteAnger} fullWidth>Anger</Button>
+                <Button name="surprise" label="Surprise" className={classes.button} variant='contained' size='large' onClick={voteSurprise} fullWidth>Surprise</Button>
                 <Button className={classes.buttonSubmit} variant='contained' color='primary' size="large" type='submit' fullWidth>Submit</Button>
             </form>
         </Paper>

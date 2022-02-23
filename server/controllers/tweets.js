@@ -51,15 +51,14 @@ export const deleteTweet = async (req, res) => {
 
 //PATCH update a specific tweet by ID
 export const updateTweet = async (req, res) => {
-    const { id } = req.params;
+    const { id: _id } = req.params;
+    const tweet = req.body;
 
-    const { handle, text, positive, neutral, negative, happiness, sadness, fear, disgust, anger, surprise  } = req.body;
+    // const { handle, text, positive, neutral, negative, happiness, sadness, fear, disgust, anger, surprise  } = req.body;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No tweet with id: ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No tweet with id: ${_id}`);
 
-    const updatedTweet = { handle, text, positive, neutral, negative, happiness, sadness, fear, disgust, anger, surprise, _id: id};
-
-    await TweetData.findByIdAndUpdate(id, updatedTweet, { new: true });
+    const updatedTweet = await TweetData.findByIdAndUpdate(_id, { ...tweet, _id}, { new: true });
 
     res.json(updatedTweet);
 }

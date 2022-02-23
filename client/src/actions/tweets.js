@@ -1,4 +1,4 @@
-import { FETCH_ALL, VOTE } from '../constants/actionTypes';
+import { FETCH_ALL, UPDATE } from '../constants/actionTypes';
 import * as api from '../api';
 
 //Action Creators
@@ -16,7 +16,7 @@ export const updateTweet = (id, tweet) => async (dispatch) => {
     try {
         const { data } = await api.updateTweet(id, tweet);
 
-        dispatch({ type: updateTweet, payload: data });
+        dispatch({ type: UPDATE, payload: data });
     } catch (error) {
         console.log(error)
     }
