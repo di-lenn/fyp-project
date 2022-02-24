@@ -28,7 +28,7 @@ const Form = ( { currentId, randTweet } ) => {
             console.log('No ID given');
         }
         funcRand();
-        //clear();
+        clear();
     }
 
     // Sentiment modifiers

@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTweets } from './actions/tweets';
 import Form from './components/Form/Form';
 import Tweets from './components/Tweets/Tweets';
+import StartPopup from './components/Popup/StartPopup';
 import twitterlogo from './images/twitterlogo.png';
 
 import useStyles from './styles';
+import 'reactjs-popup/dist/index.css';
 
 const App = () => {
     const mountTweet = {handle: 'jack', text: 'apps have distracted me from just how powerful the web is', postedOn: '2021-10-31T03:23:00.000Z', positive: 0, neutral: 0, negative: 0, happiness: 0, sadness: 0, fear: 0, disgust: 0, anger: 0, surprise: 0 }
@@ -30,6 +32,7 @@ const App = () => {
     useEffect(() => {
         dispatch(getTweets());
     }, [dispatch]);
+    
 
     return (
         <Container maxWidth='lg'>
@@ -37,6 +40,7 @@ const App = () => {
                 <Typography className={classes.heading} align='center' variant='h2'>Sentiment Label Tool</Typography>
                 <img className={classes.image} src={twitterlogo} alt='twitterlogo' height='60'/>
             </AppBar>
+            <StartPopup className={classes.instructions} />
             <Grow in>
                 <Container>
                     <Grid container>

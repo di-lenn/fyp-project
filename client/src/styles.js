@@ -14,5 +14,9 @@ export default makeStyles(() => ({
   },
   image: {
     marginLeft: '15px',
+  },
+  instructions: {
+    alignItems: 'right',
+    marginRight: '5px'
   }
 }));
