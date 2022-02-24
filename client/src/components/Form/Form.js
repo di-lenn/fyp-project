@@ -87,20 +87,19 @@ const Form = ( { currentId, randTweet } ) => {
     return (
         <Paper className={classes.paper}>
             <form noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                <Typography variant='h6'>{currentId}</Typography>
                 <Typography variant='h6'>1. Please select what sentiment is conveyed:</Typography>
-                <Button name="positive" label="Positive" className={classes.button} variant='contained' size='large' onClick={votePositive} fullWidth>Positive</Button>
-                <Button name="neutral" label="Neutral" className={classes.button} variant='contained' size='large' onClick={voteNeutral} fullWidth>Neutral</Button>
-                <Button name="negative" label="Negative" className={classes.button} variant='contained' size='large' onClick={voteNegative} fullWidth>Negative</Button>
+                <Button name="positive" label="Positive" className={classes.button} variant='contained' color={tweetData.positive ? "secondary" : "default" } size='large' onClick={votePositive} fullWidth>Positive</Button>
+                <Button name="neutral" label="Neutral" className={classes.button} variant='contained' color={tweetData.neutral ? "secondary" : "default" } size='large' onClick={voteNeutral} fullWidth>Neutral</Button>
+                <Button name="negative" label="Negative" className={classes.button} variant='contained' color={tweetData.negative ? "secondary" : "default" } size='large' onClick={voteNegative} fullWidth>Negative</Button>
 
                 <Typography variant='h6'>2. Please select the most accurate emotion conveyed:</Typography>
-                <Button name="happiness" label="Happiness" className={classes.button} variant='contained' size='large' onClick={voteHappiness} fullWidth>Happiness</Button>
-                <Button name="sadness" label="Sadness" className={classes.button} variant='contained' size='large' onClick={voteSadness} fullWidth>Sadness</Button>
-                <Button name="fear" label="Fear" className={classes.button} variant='contained' size='large' onClick={voteFear} fullWidth>Fear</Button>
-                <Button name="disgust" label="Disgust" className={classes.button} variant='contained' size='large' onClick={voteDisgust} fullWidth>Disgust</Button>
-                <Button name="anger" label="Anger" className={classes.button} variant='contained' size='large' onClick={voteAnger} fullWidth>Anger</Button>
-                <Button name="surprise" label="Surprise" className={classes.button} variant='contained' size='large' onClick={voteSurprise} fullWidth>Surprise</Button>
-                <Button className={classes.buttonSubmit} variant='contained' color='primary' size="large" type='submit' fullWidth>Submit</Button>
+                <Button name="happiness" label="Happiness" className={classes.button} variant='contained' color={tweetData.happiness ? "secondary" : "default" } size='large' onClick={voteHappiness} fullWidth>Happiness</Button>
+                <Button name="sadness" label="Sadness" className={classes.button} variant='contained' color={tweetData.sadness ? "secondary" : "default" } size='large' onClick={voteSadness} fullWidth>Sadness</Button>
+                <Button name="fear" label="Fear" className={classes.button} variant='contained' size='large' color={tweetData.fear ? "secondary" : "default" } onClick={voteFear} fullWidth>Fear</Button>
+                <Button name="disgust" label="Disgust" className={classes.button} variant='contained' color={tweetData.disgust ? "secondary" : "default" } size='large' onClick={voteDisgust} fullWidth>Disgust</Button>
+                <Button name="anger" label="Anger" className={classes.button} variant='contained' color={tweetData.anger ? "secondary" : "default" } size='large' onClick={voteAnger} fullWidth>Anger</Button>
+                <Button name="surprise" label="Surprise" className={classes.button} variant='contained' color={tweetData.surprise ? "secondary" : "default" } size='large' onClick={voteSurprise} fullWidth>Surprise</Button>
+                <Button className={classes.buttonSubmit} variant='contained' color='Primary' size="large" type='submit' fullWidth>Submit</Button>
             </form>
         </Paper>
     );
