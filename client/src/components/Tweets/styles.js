@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%',
+    paddingTop: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     backgroundBlendMode: 'darken',
   },
@@ -17,6 +17,7 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     borderRadius: '15px',
     height: '100%',
+    width: '100%',
     position: 'relative',
   },
   overlay: {

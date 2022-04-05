@@ -1,53 +1,129 @@
 import mongoose from 'mongoose';
 
 const tweetSchema = mongoose.Schema({
-    handle: {
+    tweet_id: {
         type: String,
-        default: "username"
+        default: null
     },
-    text: {
-        type: String,
-        default: "TWEET DATA"
+    sentiment: {
+        positive: {
+            type: Number,
+            default: 0
+        },
+        neutral: {
+            type: Number,
+            default: 0
+        },
+        negative: {
+            type: Number,
+            default: 0
+        }
     },
-    postedOn: {
-        type: Date,
-        default: Date.now
+    emotion: {
+        happiness: {
+            type: Number,
+            default: 0
+        },
+        sadness: {
+            type: Number,
+            default: 0
+        },
+        fear: {
+            type: Number,
+            default: 0
+        },
+        disgust: {
+            type: Number,
+            default: 0
+        },
+        anger: {
+            type: Number,
+            default: 0
+        },
+        surprise: {
+            type: Number,
+            default: 0
+        }
     },
-    positive: {
-        type: Number,
-        default: 0
-    },
-    neutral: {
-        type: Number,
-        default: 0
-    },
-    negative: {
-        type: Number,
-        default: 0
-    },
-    happiness: {
-        type: Number,
-        default: 0
-    },
-    sadness: {
-        type: Number,
-        default: 0
-    },
-    fear: {
-        type: Number,
-        default: 0
-    },
-    disgust: {
-        type: Number,
-        default: 0
-    },
-    anger: {
-        type: Number,
-        default: 0
-    },
-    surprise: {
-        type: Number,
-        default: 0
+    pairs: {
+        pos: {
+            happiness: {
+                type: Number,
+                default: 0
+            },
+            sadness: {
+                type: Number,
+                default: 0
+            },
+            fear: {
+                type: Number,
+                default: 0
+            },
+            disgust: {
+                type: Number,
+                default: 0
+            },
+            anger: {
+                type: Number,
+                default: 0
+            },
+            surprise: {
+                type: Number,
+                default: 0
+            }
+        },
+        neu: {
+            happiness: {
+                type: Number,
+                default: 0
+            },
+            sadness: {
+                type: Number,
+                default: 0
+            },
+            fear: {
+                type: Number,
+                default: 0
+            },
+            disgust: {
+                type: Number,
+                default: 0
+            },
+            anger: {
+                type: Number,
+                default: 0
+            },
+            surprise: {
+                type: Number,
+                default: 0
+            }
+        },
+        neg: {
+            happiness: {
+                type: Number,
+                default: 0
+            },
+            sadness: {
+                type: Number,
+                default: 0
+            },
+            fear: {
+                type: Number,
+                default: 0
+            },
+            disgust: {
+                type: Number,
+                default: 0
+            },
+            anger: {
+                type: Number,
+                default: 0
+            },
+            surprise: {
+                type: Number,
+                default: 0
+            }
+        }
     }
 })
 

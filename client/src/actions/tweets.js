@@ -15,7 +15,7 @@ export const getTweets = () => async (dispatch) => {
 export const updateTweet = (id, tweet) => async (dispatch) => {
     try {
         const { data } = await api.updateTweet(id, tweet);
-
+        
         dispatch({ type: UPDATE, payload: data });
     } catch (error) {
         console.log(error)

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
@@ -50,9 +50,10 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function CustomizedDialogs() {
+export default function CustomizedDialogs({ randTweet }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
+  const funcRand = randTweet;
 
   useEffect(() => {
     setTimeout(() => {
@@ -60,11 +61,13 @@ export default function CustomizedDialogs() {
     }, 1000)
   }, []);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+  
   const handleClose = () => {
     setOpen(false);
+    funcRand();
   };
 
   return (

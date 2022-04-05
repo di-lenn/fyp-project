@@ -12,21 +12,63 @@ import useStyles from './styles';
 import 'reactjs-popup/dist/index.css';
 
 const App = () => {
-    const mountTweet = {handle: 'jack', text: 'apps have distracted me from just how powerful the web is', postedOn: '2021-10-31T03:23:00.000Z', positive: 0, neutral: 0, negative: 0, happiness: 0, sadness: 0, fear: 0, disgust: 0, anger: 0, surprise: 0 }
-    const [currentId, setCurrentId] = useState(null);
-    const [currTweet, setCurrTweet] = useState(mountTweet);
     const tweets = useSelector((state) => state.tweets);
+    const [currentId, setCurrentId] = useState(null);
+    const [currTweet, setCurrTweet] = useState({});
+    const [currUser, setCurrUser] = useState(null);
+    const [currMedia, setCurrMedia] = useState(null);
     const classes = useStyles();
     const dispatch = useDispatch();
 
     const randomTweet = () => {
-        const random = tweets[Math.floor(Math.random() * 5000)];
+        const random = tweets.data[Math.floor(Math.random() * tweets.data.length)];
         setCurrTweet(random);
-        //console.log('This is inside the RANDOM func')
+    }
+
+    const getUsername = async () => {
+        try
+        {
+            let username = '';
+            let usersObj = await tweets.includes.users;
+            const uid = currTweet.author_id;
+
+            for (let j = 0; j < 3; j++) {
+                let currId = usersObj[j]["id"];
+                if(currId === uid) {
+                    username = usersObj[j]["username"];
+                    setCurrUser(username);
+                }
+            }
+        }
+        catch(error){
+            console.log(error.message);
+        }
+    }
+
+    const getMedia = async () => {
+        try {
+            let url = '';
+            let mediaObj = await tweets.includes.media;
+            //Get the first media key associated with the current tweet
+            const mkey = currTweet.attachments["media_keys"][0];
+
+            for (let j = 0; j < 3; j++) {
+                //Get the first media key associated with each tweet in the state
+                let currKey = mediaObj[j]["media_key"];
+                if (currKey === mkey) {
+                    url = mediaObj[j]["url"]
+                    setCurrMedia(url);
+                }
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     useEffect(() => {
-        setCurrentId(currTweet._id)
+        setCurrentId(currTweet.id);
+        getUsername();
+        getMedia();
     }, [currTweet])
 
     useEffect(() => {
@@ -40,12 +82,12 @@ const App = () => {
                 <Typography className={classes.heading} align='center' variant='h2'>Sentiment Label Tool</Typography>
                 <img className={classes.image} src={twitterlogo} alt='twitterlogo' height='60'/>
             </AppBar>
-            <StartPopup className={classes.instructions} />
+            <StartPopup className={classes.instructions} randTweet={randomTweet}/>
             <Grow in>
                 <Container>
                     <Grid container>
                         <Grid item xs={12} sm={6}>
-                            <Tweets setCurrentId={setCurrentId} handle={currTweet.handle} text={currTweet.text} postedOn={currTweet.postedOn}/>
+                            <Tweets setCurrentId={setCurrentId} author_id={currUser} text={currTweet.text} created_at={currTweet.created_at} media_url={currMedia}/>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Form currentId={currentId} randTweet={randomTweet}/>

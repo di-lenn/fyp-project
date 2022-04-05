@@ -6,82 +6,83 @@ import useStyles from './styles';
 import { updateTweet } from '../../actions/tweets';
 
 const Form = ( { currentId, randTweet } ) => {
-    const [tweetData, setTweetData] = useState({ handle: '', text: '', postedOn: '', positive: 0, neutral: 0, negative: 0, happiness: 0, sadness: 0, fear: 0, disgust: 0, anger: 0, surprise: 0 });
-    const tweet = useSelector((state) => currentId ? state.tweets.find((p) => p._id === currentId) : null);
+    const [tweetData, setTweetData] = useState({id: currentId, sentiment: '', emotion: ''});
+    const tweet = useSelector((state) => currentId ? state.tweets.data.find((p) => p.id === currentId) : null);
     const classes = useStyles();
     const dispatch = useDispatch();
     const funcRand = randTweet;
 
     useEffect(() => {
         if(tweet)
-            setTweetData(tweet)
+            setTweetData({...tweetData, id: currentId});
     }, [tweet])
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if(currentId) {
+            setTweetData({ ...tweetData, id: currentId })
             dispatch(updateTweet(currentId, tweetData));
-            console.log("dispatched!: ");
+            console.log("dispatched!: " + currentId);
         } else {
             console.log('No ID given');
         }
+        console.log(tweetData);
         funcRand();
         clear();
     }
 
     // Sentiment modifiers
     const votePositive = () => {
-        const val = tweet.positive + 1
-        setTweetData({ ...tweetData, positive: val})
+        const val = 'positive';
+        setTweetData({...tweetData, sentiment: val});
     }
 
     const voteNeutral = () => {
-        const val = tweet.neutral + 1
-        setTweetData({ ...tweetData, neutral: val})
+        const val = 'neutral'
+        setTweetData({...tweetData, sentiment: val});
     }
 
     const voteNegative = () => {
-        const val = tweet.negative + 1
-        setTweetData({ ...tweetData, negative: val})
+        const val = 'negative'
+        setTweetData({...tweetData, sentiment: val});
     }
     //
 
     // Emotion Modifiers
     const voteHappiness = () => {
-        const val = tweet.happiness + 1
-        setTweetData({ ...tweetData, happiness: val})
+        const val = 'happiness'
+        setTweetData({...tweetData, emotion: val});
     }
 
     const voteSadness = () => {
-        const val = tweet.sadness + 1
-        setTweetData({ ...tweetData, sadness: val})
+        const val = 'sadness'
+        setTweetData({...tweetData, emotion: val});
     }
 
     const voteFear = () => {
-        const val = tweet.fear + 1
-        setTweetData({ ...tweetData, fear: val})
+        const val = 'fear'
+        setTweetData({...tweetData, emotion: val});
     }
     
     const voteDisgust = () => {
-        const val = tweet.disgust + 1
-        setTweetData({ ...tweetData, disgust: val})
+        const val = 'disgust'
+        setTweetData({...tweetData, emotion: val});
     }
 
     const voteAnger = () => {
-        const val = tweet.anger + 1
-        setTweetData({ ...tweetData, anger: val})
+        const val = 'anger'
+        setTweetData({...tweetData, emotion: val});
     }
 
     const voteSurprise = () => {
-        const val = tweet.surprise + 1
-        setTweetData({ ...tweetData, surprise: val})
+        const val = 'surprise'
+        setTweetData({...tweetData, emotion: val});
     }
     //
 
     const clear = () => {
-        setTweetData({ handle: '', text: '', postedOn: '', positive: 0, neutral: 0, negative: 0, happiness: 0, sadness: 0, fear: 0, disgust: 0, anger: 0, surprise: 0 });
+        setTweetData({id: '', sentiment: '', emotion: ''});
     }
 
     return (
@@ -99,7 +100,7 @@ const Form = ( { currentId, randTweet } ) => {
                 <Button name="disgust" label="Disgust" className={classes.button} variant='contained' color={tweetData.disgust ? "secondary" : "default" } size='large' onClick={voteDisgust} fullWidth>Disgust</Button>
                 <Button name="anger" label="Anger" className={classes.button} variant='contained' color={tweetData.anger ? "secondary" : "default" } size='large' onClick={voteAnger} fullWidth>Anger</Button>
                 <Button name="surprise" label="Surprise" className={classes.button} variant='contained' color={tweetData.surprise ? "secondary" : "default" } size='large' onClick={voteSurprise} fullWidth>Surprise</Button>
-                <Button className={classes.buttonSubmit} variant='contained' color='Primary' size="large" type='submit' fullWidth>Submit</Button>
+                <Button className={classes.buttonSubmit} variant='contained' color='primary' size="large" type='submit' fullWidth>Submit</Button>
             </form>
         </Paper>
     );
