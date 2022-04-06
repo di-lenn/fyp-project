@@ -7,6 +7,8 @@ import { updateTweet } from '../../actions/tweets';
 
 const Form = ( { currentId, randTweet } ) => {
     const [tweetData, setTweetData] = useState({id: currentId, sentiment: '', emotion: ''});
+    const [sFlag, setSFlag] = useState(false);
+    const [eFlag, setEFlag] = useState(false);
     const tweet = useSelector((state) => currentId ? state.tweets.data.find((p) => p.id === currentId) : null);
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -27,7 +29,6 @@ const Form = ( { currentId, randTweet } ) => {
         } else {
             console.log('No ID given');
         }
-        console.log(tweetData);
         funcRand();
         clear();
     }
@@ -83,23 +84,25 @@ const Form = ( { currentId, randTweet } ) => {
 
     const clear = () => {
         setTweetData({id: '', sentiment: '', emotion: ''});
+        setSFlag(!sFlag);
+        setEFlag(!eFlag);
     }
 
     return (
         <Paper className={classes.paper}>
             <form noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                <Typography variant='h6'>1. Please select what sentiment is conveyed:</Typography>
-                <Button name="positive" label="Positive" className={classes.button} variant='contained' color={tweetData.positive ? "secondary" : "default" } size='large' onClick={votePositive} fullWidth>Positive</Button>
-                <Button name="neutral" label="Neutral" className={classes.button} variant='contained' color={tweetData.neutral ? "secondary" : "default" } size='large' onClick={voteNeutral} fullWidth>Neutral</Button>
-                <Button name="negative" label="Negative" className={classes.button} variant='contained' color={tweetData.negative ? "secondary" : "default" } size='large' onClick={voteNegative} fullWidth>Negative</Button>
+                <Typography variant='h6' className={classes.typography}>1. Please select what sentiment is conveyed:</Typography>
+                <Button name="positive" label="Positive" className={classes.button} variant='contained' color={(tweetData.sentiment === "positive") ? "secondary" : "default" } size='large' onClick={votePositive} fullWidth>Positive</Button>
+                <Button name="neutral" label="Neutral" className={classes.button} variant='contained' color={(tweetData.sentiment === "neutral") ? "secondary" : "default" } size='large' onClick={voteNeutral} fullWidth>Neutral</Button>
+                <Button name="negative" label="Negative" className={classes.button} variant='contained' color={(tweetData.sentiment === "negative") ? "secondary" : "default" } size='large' onClick={voteNegative} fullWidth>Negative</Button>
 
-                <Typography variant='h6'>2. Please select the most accurate emotion conveyed:</Typography>
-                <Button name="happiness" label="Happiness" className={classes.button} variant='contained' color={tweetData.happiness ? "secondary" : "default" } size='large' onClick={voteHappiness} fullWidth>Happiness</Button>
-                <Button name="sadness" label="Sadness" className={classes.button} variant='contained' color={tweetData.sadness ? "secondary" : "default" } size='large' onClick={voteSadness} fullWidth>Sadness</Button>
-                <Button name="fear" label="Fear" className={classes.button} variant='contained' size='large' color={tweetData.fear ? "secondary" : "default" } onClick={voteFear} fullWidth>Fear</Button>
-                <Button name="disgust" label="Disgust" className={classes.button} variant='contained' color={tweetData.disgust ? "secondary" : "default" } size='large' onClick={voteDisgust} fullWidth>Disgust</Button>
-                <Button name="anger" label="Anger" className={classes.button} variant='contained' color={tweetData.anger ? "secondary" : "default" } size='large' onClick={voteAnger} fullWidth>Anger</Button>
-                <Button name="surprise" label="Surprise" className={classes.button} variant='contained' color={tweetData.surprise ? "secondary" : "default" } size='large' onClick={voteSurprise} fullWidth>Surprise</Button>
+                <Typography variant='h6' className={classes.typography}>2. Please select the most accurate emotion conveyed:</Typography>
+                <Button name="happiness" label="Happiness" className={classes.button} variant='contained' color={(tweetData.emotion === "happiness") ? "secondary" : "default" } size='large' onClick={voteHappiness} fullWidth>Happiness</Button>
+                <Button name="sadness" label="Sadness" className={classes.button} variant='contained' color={(tweetData.emotion === "sadness") ? "secondary" : "default" } size='large' onClick={voteSadness} fullWidth>Sadness</Button>
+                <Button name="fear" label="Fear" className={classes.button} variant='contained' size='large' color={(tweetData.emotion === "fear") ? "secondary" : "default" } onClick={voteFear} fullWidth>Fear</Button>
+                <Button name="disgust" label="Disgust" className={classes.button} variant='contained' color={(tweetData.emotion === "disgust") ? "secondary" : "default" } size='large' onClick={voteDisgust} fullWidth>Disgust</Button>
+                <Button name="anger" label="Anger" className={classes.button} variant='contained' color={(tweetData.emotion === "anger") ? "secondary" : "default" } size='large' onClick={voteAnger} fullWidth>Anger</Button>
+                <Button name="surprise" label="Surprise" className={classes.button} variant='contained' color={(tweetData.emotion === "surprise") ? "secondary" : "default" } size='large' onClick={voteSurprise} fullWidth>Surprise</Button>
                 <Button className={classes.buttonSubmit} variant='contained' color='primary' size="large" type='submit' fullWidth>Submit</Button>
             </form>
         </Paper>

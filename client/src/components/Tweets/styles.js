@@ -8,8 +8,7 @@ export default makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    backgroundBlendMode: 'darken',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
   card: {
     display: 'flex',
@@ -25,5 +24,9 @@ export default makeStyles((theme) => ({
     top: '20px',
     left: '20px',
     color: 'white',
+  },
+  typography: {
+    fontFamily: 'Helvetica Neue',
+    fontSize: '18px'
   }
 }));

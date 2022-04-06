@@ -28,7 +28,7 @@ export const getTweets = async (req, res) => {
             'media.fields': ['url'],
             'tweet.fields': ['author_id','created_at'],
           });
-        //console.log(tData.includes["media"]);
+        console.log(tData.includes["media"]);
         res.json(tData);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -88,63 +88,66 @@ export const updateTweet = async (req, res) => {
     const { id: tID } = req.params;
     const tweet = req.body;
 
-    const sentimentVote = tweet.sentiment;
-    const emotionVote = tweet.emotion;
+    try {
+        const sentimentVote = tweet.sentiment;
+        const emotionVote = tweet.emotion;
 
-    // Use the tweet_id passed from client to find document in DB
-    const filter = { tweet_id: tID };
-    let dbTweet = await TweetData.findOne(filter);
+        // Use the tweet_id passed from client to find document in DB
+        const filter = { tweet_id: tID };
+        let dbTweet = await TweetData.findOne(filter);
 
-    // Get the existing group JSON data for requested tweet
-    const schemaSentiment = dbTweet.sentiment;
-    const schemaEmotion = dbTweet.emotion;
-    const schemaPairs = dbTweet.pairs;
-    let schemaSubPairs = {};
-    console.log(schemaPairs["pos"]);
+        // Get the existing group JSON data for requested tweet
+        const schemaSentiment = dbTweet.sentiment;
+        const schemaEmotion = dbTweet.emotion;
+        const schemaPairs = dbTweet.pairs;
+        let schemaSubPairs = {};
+        //console.log(schemaPairs["pos"]);
 
-    // Find which group to update pair value
-    let pair_group = "";
-    switch(sentimentVote) {
-        case "positive":
-            pair_group = "pos";
-            schemaSubPairs = schemaPairs["pos"];
-            break;
-        case "neutral":
-            pair_group = "neu";
-            schemaSubPairs = schemaPairs["neu"];
-            break;
-        case "negative":
-            pair_group = "neg";
-            schemaSubPairs = schemaPairs["neg"];
-            break;
-        default:
-            pair_group = "";
-            break;
-    }
-
-    //Increment the existing value in the DB
-    let db_sInput = schemaSentiment[sentimentVote] + 1;
-    let db_eInput = schemaEmotion[emotionVote] + 1;
-    let db_pInput = schemaPairs[pair_group][emotionVote] + 1;
-
-    //Fields to be updated
-    const update = { 
-        sentiment: { ...schemaSentiment, [sentimentVote]: db_sInput },
-        emotion: { ...schemaEmotion, [emotionVote]: db_eInput },
-        pairs: { ...schemaPairs, [pair_group]: { 
-                    ...schemaSubPairs, [emotionVote]: db_pInput 
-                } 
+        // Find which group to update pair value
+        let pair_group = "";
+        switch(sentimentVote) {
+            case "positive":
+                pair_group = "pos";
+                schemaSubPairs = schemaPairs["pos"];
+                break;
+            case "neutral":
+                pair_group = "neu";
+                schemaSubPairs = schemaPairs["neu"];
+                break;
+            case "negative":
+                pair_group = "neg";
+                schemaSubPairs = schemaPairs["neg"];
+                break;
+            default:
+                pair_group = "";
+                break;
         }
-    };
 
-    const doc = await TweetData.findOneAndUpdate(filter, update, {new: true});
+        //Increment the existing value in the DB
+        let db_sInput = schemaSentiment[sentimentVote] + 1;
+        let db_eInput = schemaEmotion[emotionVote] + 1;
+        let db_pInput = schemaPairs[pair_group][emotionVote] + 1;
 
+        //Fields to be updated
+        const update = { 
+            sentiment: { ...schemaSentiment, [sentimentVote]: db_sInput },
+            emotion: { ...schemaEmotion, [emotionVote]: db_eInput },
+            pairs: { ...schemaPairs, [pair_group]: { 
+                        ...schemaSubPairs, [emotionVote]: db_pInput 
+                    } 
+            }
+        };
+
+        const doc = await TweetData.findOneAndUpdate(filter, update, {new: true});
+        res.status(200).json(doc);
+    }
+    catch (error) {
+        res.status(404).json({ message: error.message });
+    }
     //console.log(doc);
     // const { handle, text, positive, neutral, negative, happiness, sadness, fear, disgust, anger, surprise  } = req.body;
 
     //if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No tweet with id: ${_id}`);
 
     //const updatedTweet = await TweetData.findByIdAndUpdate(_id, { ...tweet, _id}, { new: true });
-
-    res.json(doc);
 }

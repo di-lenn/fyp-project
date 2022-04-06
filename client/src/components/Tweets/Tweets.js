@@ -24,7 +24,7 @@ const Tweets = (oneTweet) => {
                     <Typography variant='body2'>{moment(oneTweet.created_at).format("dddd, MMMM Do YYYY")}</Typography>
                 </div>
                 <CardContent>
-                    <Typography variant='body2' component="p" >{oneTweet.text}</Typography>
+                    <Typography variant='body2' component="p" className={classes.typography}>{oneTweet.text}</Typography>
                 </CardContent>
             </Card>
             </Grid>

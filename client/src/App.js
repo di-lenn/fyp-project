@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
+import { Container, AppBar, Typography, Grow, Grid, Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getTweets } from './actions/tweets';
@@ -32,7 +32,7 @@ const App = () => {
             let usersObj = await tweets.includes.users;
             const uid = currTweet.author_id;
 
-            for (let j = 0; j < 3; j++) {
+            for (let j = 0; j < tweets.data.length; j++) {
                 let currId = usersObj[j]["id"];
                 if(currId === uid) {
                     username = usersObj[j]["username"];
@@ -52,7 +52,7 @@ const App = () => {
             //Get the first media key associated with the current tweet
             const mkey = currTweet.attachments["media_keys"][0];
 
-            for (let j = 0; j < 3; j++) {
+            for (let j = 0; j < tweets.data.length; j++) {
                 //Get the first media key associated with each tweet in the state
                 let currKey = mediaObj[j]["media_key"];
                 if (currKey === mkey) {
@@ -66,6 +66,7 @@ const App = () => {
     }
 
     useEffect(() => {
+        console.log('currTweet changed');
         setCurrentId(currTweet.id);
         getUsername();
         getMedia();
@@ -74,6 +75,10 @@ const App = () => {
     useEffect(() => {
         dispatch(getTweets());
     }, [dispatch]);
+
+    const handleClick = () => {
+        window.open("https://forms.gle/bhp4FZBW8KtisWNaA");
+      };
     
 
     return (
@@ -95,6 +100,7 @@ const App = () => {
                     </Grid>
                 </Container>
             </Grow>
+            <Button className={classes.button} variant="contained" color={"secondary"} onClick={handleClick}>Feedback Survey</Button>
         </Container>
     );
 }

@@ -8,9 +8,12 @@ export default makeStyles(() => ({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    background: '#140F2D'
   },
   heading: {
-    color: 'rgba(29,161,242, 1)',
+    color: 'white',
+    fontFamily: 'helvetica neue',
+    fontWeight: 'bold'
   },
   image: {
     marginLeft: '15px',
@@ -18,5 +21,10 @@ export default makeStyles(() => ({
   instructions: {
     alignItems: 'right',
     marginRight: '5px'
+  },
+  button: {
+    marginBottom: 10,
+    marginTop: 15,
+    fontWeight: 'bold'
   }
 }));
