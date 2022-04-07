@@ -1,10 +1,12 @@
+import 'dotenv/config';
 import mongoose from 'mongoose';
 
 import TweetData from '../models/tweet.js';
 
 import { TwitterApi } from 'twitter-api-v2';
 
-const twitterClient = new TwitterApi('AAAAAAAAAAAAAAAAAAAAAFCRagEAAAAAtP1TpgU9EeYMJD8uwOVk3KIZ1Vw%3DW0Zry7AKlbrzx0mZnlALCeoxeGbXvIsbSXkKmA8Jb4YOB4QdNg');
+const BEARER_TOKEN = process.env.BEARER;
+const twitterClient = new TwitterApi(BEARER_TOKEN);
 const roClient = twitterClient.readOnly;
 
 //GET all tweets using Twitter API
