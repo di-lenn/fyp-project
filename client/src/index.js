@@ -15,10 +15,10 @@ const store = createStore(reducers, compose(applyMiddleware(thunk)));
 const theme = createTheme({
     palette: {
        primary: {
-          main: "#F22B29" // This is an orange looking color
+          main: "#F22B29"
                  },
        secondary: {
-          main: "#F2AF29" //Another orange-ish color
+          main: "#F2AF29"
                   },
        third: {
            main: "#88A0A8"

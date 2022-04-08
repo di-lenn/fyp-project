@@ -30,29 +30,17 @@ export const getTweets = async (req, res) => {
             'media.fields': ['url'],
             'tweet.fields': ['author_id','created_at'],
           });
-        console.log(tData.includes["media"]);
         res.json(tData);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
 }
 
-//GET all tweets voting data
-export const getVotes = async (req, res) => {
-    try {
-        const tweets = await TweetData.find();
-        console.log('sending mongodb data to client');
-        res.json(tweets);
-    } catch (err) {
-        res.status(404).json({ message: error.message });
-    }
-}
-
 //POST create a new tweet
 export const createTweet = async (req, res) => {
-    const { handle, text, positive, neutral, negative, happiness, sadness, fear, disgust, anger, surprise } = req.body;
+    const { tweet_id, sentiment, emotion, pairs } = req.body;
 
-    const newTweetData = new TweetData({ handle, text, positive, neutral, negative, happiness, sadness, fear, disgust, anger, surprise });
+    const newTweetData = new TweetData({ tweet_id, sentiment, emotion, pairs });
     try{
         await newTweetData.save();
         res.status(201).json(newTweetData);
@@ -103,7 +91,6 @@ export const updateTweet = async (req, res) => {
         const schemaEmotion = dbTweet.emotion;
         const schemaPairs = dbTweet.pairs;
         let schemaSubPairs = {};
-        //console.log(schemaPairs["pos"]);
 
         // Find which group to update pair value
         let pair_group = "";
@@ -146,10 +133,4 @@ export const updateTweet = async (req, res) => {
     catch (error) {
         res.status(404).json({ message: error.message });
     }
-    //console.log(doc);
-    // const { handle, text, positive, neutral, negative, happiness, sadness, fear, disgust, anger, surprise  } = req.body;
-
-    //if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No tweet with id: ${_id}`);
-
-    //const updatedTweet = await TweetData.findByIdAndUpdate(_id, { ...tweet, _id}, { new: true });
 }
